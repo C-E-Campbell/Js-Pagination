@@ -4,66 +4,26 @@ const mainDiv = document.querySelector('div');
 const pageDiv = document.querySelector('div.page');
 const pageHeader = document.querySelector('div.page-header ');
 const pageH2 = document.querySelector('div.page-header h2');
-
+console.log(students);
 
 
 
 
 
 /* showPage() 
---takes in a page parameter to choose which page to show
+--takes in a page parameter to choose which page to show and a list. the list is the array of students
 --iterates through all the students and only shows indices based on the page chosen. the page number to show comes from the pageUl event listener
 */
-function showPage(page) {
-   for (let i = 0; i < students.length; i++) {
-      if (page === 1) {
-         if (i < 10) {
-            students[i].style.display = ''
-         } else {
-            students[i].style.display = 'none'
-         }
-      } else if (page === 2) {
-         if (i >= 11 && i <= 20) {
-            students[i].style.display = ''
-         } else {
-            students[i].style.display = 'none'
-         }
-      } else if (page === 3) {
-         if (i >= 21 && i <= 30) {
-            students[i].style.display = ''
-         } else {
-            students[i].style.display = 'none'
-         }
-      } else if (page === 4) {
-         if (i >= 31 && i <= 40) {
-            students[i].style.display = ''
-         } else {
-            students[i].style.display = 'none'
-         }
-      } else if (page === 5) {
-         if (i >= 41 && i <= 50) {
-            students[i].style.display = ''
-         } else {
-            students[i].style.display = 'none'
-         }
-      } else if (page === 6) {
-         if (i >= 51 && i <= 60) {
-            students[i].style.display = ''
-         } else {
-            students[i].style.display = 'none'
-         }
-      } else if (page === 7) {
-         if (i >= 61 && i <= 70) {
-            students[i].style.display = ''
-         } else {
-            students[i].style.display = 'none'
-         }
-      } else if (page === 8) {
-         if (i >= 71 && i <= 80) {
-            students[i].style.display = ''
-         } else {
-            students[i].style.display = 'none'
-         }
+function showPage(page, list) {
+   // these equations determine the start and end for the indices that should be shown. 
+   let start = (page - 1) * 10;
+   let end = ((page - 1) * 10) + 9;
+
+   for (let i = 0; i < list.length; i++) {
+      if (i >= start && i <= end) {
+         list[i].style.display = '';
+      } else {
+         list[i].style.display = 'none';
       }
    }
 }
@@ -109,39 +69,20 @@ function appendPageLinks() {
    const link = document.querySelectorAll('a');
    link[0].classList.add('active');
 
-   //event listener to decide which page to show
+   //pageUL -- event listener to decide which page to show
    pageUl.addEventListener('click', (e) => {
       const a = e.target;
       for (let i = 0; i < link.length; i++) {
          link[i].classList.remove('active');
       }
       a.classList.add('active');
-      if (a.textContent === '1') {
-         showPage(1, students);
+      let pageNum = a.textContent;
 
-      } else if (a.textContent === '2') {
-         showPage(2, students);
-
-      } else if (a.textContent === '3') {
-         showPage(3, students);
-
-      } else if (a.textContent === '4') {
-         showPage(4, students);
-
-      } else if (a.textContent === '5') {
-         showPage(5, students);
-
-      } else if (a.textContent === '6') {
-         showPage(6, students);
-
-      } else if (a.textContent === '7') {
-         showPage(7, students);
-
-      }
+      showPage(pageNum, students);
    })
 }
 
 
 // call the inital page view
-showPage(1);
+showPage(1, students);
 appendPageLinks();
